@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Weather Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-weather="default">
+
+  <div class="bg-layer"></div>
+  <canvas id="weatherCanvas" class="weather-canvas"></canvas>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">⛅</span>
+        <span class="brand-name">Weatherly</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </header>
+
+    <main class="content">
+      <section class="search-section">
+        <form id="searchForm" class="search-form" autocomplete="off">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              id="cityInput"
+              placeholder="Search for a city..."
+              aria-label="City name"
+            />
+            <div id="suggestions" class="suggestions hidden"></div>
+          </div>
+          <button type="button" id="geoBtn" class="btn-geo" title="Use my location">📍</button>
+          <button type="submit" class="btn-search">Search</button>
+        </form>
+
+        <div class="quick-row">
+          <button class="unit-toggle" id="unitToggle" title="Switch °C/°F">°C / °F</button>
+          <div class="history" id="historyRow"></div>
+        </div>
+      </section>
+
+      <section id="statusArea" class="status-area hidden">
+        <div id="loadingState" class="skeleton-wrap hidden">
+          <div class="skeleton-card">
+            <div class="skel-line skel-title shimmer"></div>
+            <div class="skel-line skel-sub shimmer"></div>
+            <div class="skel-row">
+              <div class="skel-circle shimmer"></div>
+              <div class="skel-line skel-temp shimmer"></div>
+            </div>
+            <div class="skel-grid">
+              <div class="skel-box shimmer"></div>
+              <div class="skel-box shimmer"></div>
+              <div class="skel-box shimmer"></div>
+              <div class="skel-box shimmer"></div>
+            </div>
+          </div>
+        </div>
+        <div id="errorState" class="state-box error hidden">
+          <span class="error-icon">⚠️</span>
+          <p id="errorMessage">City not found. Please try another search.</p>
+        </div>
+      </section>
+
+      <section id="weatherCard" class="weather-card hidden">
+        <div class="current-main">
+          <div class="location-block">
+            <h1 id="cityName">--</h1>
+            <p id="dateTime">--</p>
+            <p id="conditionText" class="condition-text">--</p>
+          </div>
+          <div class="temp-block">
+            <span id="weatherEmoji" class="weather-emoji">☀️</span>
+            <span id="currentTemp" class="current-temp">--°</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-icon">💧</span>
+            <div>
+              <p class="stat-label">Humidity</p>
+              <p class="stat-value" id="humidity">--%</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💨</span>
+            <div>
+              <p class="stat-label">Wind Speed</p>
+              <p class="stat-value" id="windSpeed">-- km/h</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">📊</span>
+            <div>
+              <p class="stat-label">Pressure</p>
+              <p class="stat-value" id="pressure">-- hPa</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">👁️</span>
+            <div>
+              <p class="stat-label">Visibility</p>
+              <p class="stat-value" id="visibility">-- km</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">🌡️</span>
+            <div>
+              <p class="stat-label">Feels Like</p>
+              <p class="stat-value" id="feelsLike">--°</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">🌅</span>
+            <div>
+              <p class="stat-label">Sunrise / Sunset</p>
+              <p class="stat-value" id="sunTimes">-- / --</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="forecastSection" class="forecast-section hidden">
+        <h2 class="forecast-title">5-Day Forecast</h2>
+        <div id="forecastRow" class="forecast-row"></div>
+      </section>
+
+      <section id="welcomeState" class="welcome-state">
+        <span class="welcome-icon">🌍</span>
+        <h2>Search for a city to get started</h2>
+        <p>Get real-time weather data, forecasts, and more.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Powered by OpenWeatherMap API &middot; Built with HTML, CSS &amp; JS</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
